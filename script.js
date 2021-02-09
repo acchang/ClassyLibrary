@@ -26,14 +26,25 @@ submitButton.addEventListener("click", e => {
   addBookToLibrary();
   })
 
-function Book(title, fname, lname, pubDate, contrib, own) {
-  this.title = title;
-  this.fname = fname;
-  this.lname = lname;
-  this.pubDate = pubDate;
-  this.contrib = contrib;
-  this.own = own;
-};
+class Book {
+  constructor(title, fname, lname, pubDate, contrib, own){
+    this.title = title;
+    this.fname = fname;
+    this.lname = lname;
+    this.pubDate = pubDate;
+    this.contrib = contrib;
+    this.own = own;
+  }  
+}
+
+// function Book(title, fname, lname, pubDate, contrib, own) {
+//   this.title = title;
+//   this.fname = fname;
+//   this.lname = lname;
+//   this.pubDate = pubDate;
+//   this.contrib = contrib;
+//   this.own = own;
+// };
 
 function addBookToLibrary() {
   let title = document.querySelector("#title").value;
@@ -43,7 +54,7 @@ function addBookToLibrary() {
   let contrib = document.querySelector("#contrib").value;
   let own = document.querySelector("#own").checked;
   var addBook = new Book(title, fname, lname, pubDate, contrib, own);
-  // I could just put document.querySelector values into var addBook but this is clearer
+  console.log(addBook)
   firebase.database().ref('/Book').push(addBook)
   myLibrary.push(addBook);
   render();
@@ -53,9 +64,7 @@ function addBookToLibrary() {
   document.querySelector("#pubDate").value = "";
   document.querySelector("#contrib").value = "";
   document.querySelector("#own").checked = false;
-  // I can also shorten this with form.reset()
-  // https://discord.com/channels/505093832157691914/690590001486102589/736653879684628491
-};
+ };
 
 
 function render() {
